@@ -3,25 +3,44 @@
 <head>
 	<meta charset="utf-8">
 	<script>
-		function setSearchEngine() {
-			let selection = document.querySelector("input[name=engine]:checked");
-			return selection.value;
-		}
+	function setSearchEngine() {
+		let selection = document.querySelector("input[name=engine]:checked");
+		return selection.value;
+	}
 
-		let actions = {
-			"google": "https://www.google.com/",
-			"duckDuckGo": "https://duckduckgo.com/",
-			"bing": "https://www.bing.com/search",
-			"ask": "https://www.ask.com/web"
-		};
+	let actions = {
+		"google": "https://www.google.com/",
+		"duckDuckGo": "https://duckduckgo.com/",
+		"bing": "https://www.bing.com/search",
+		"ask": "https://www.ask.com/web"
+	};
+
+	function validateSearchTerm() {
+		let searchTerm = document.querySelector("input[name=q]");
+		if (searchTerm.value === "") {
+			alert("All fields are required!");
+			event.preventDefault();
+		}
+	}
+
+	function validateSearchEngine() {
+		let selector = document.querySelectorAll("input[name=engine]");
+		if (selector === null) {
+			alert("All fields are required!");
+			event.preventDefault();
+		}
+	}
 
     window.addEventListener("load", function(){
 		let form = document.getElementById("searchForm");
 		form.addEventListener("submit", function() {
 			setSearchEngine();
 			form.setAttribute("action", actions[setSearchEngine()]);
+			validateSearchTerm();
+			validateSearchEngine();
 		});
     });
+
 	</script>
 </head>
 
